@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h1 style="color:wheat">Create Listing</h1><br>
+<div style="color:wheat; background-color:none; border: 3px solid wheat; width: 35%; margin:5px; padding:20px; border-radius: 10px;">
+<form action="{% url 'create' %}" method="POST">
+    {% csrf_token %}
+    {{ createform.as_p }}
+    <input class="button button1" type="submit" value="Create">
+</form>
+</div>
+{% endblock %}

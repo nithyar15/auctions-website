@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1 style="color: #F08080">All Categories</h1> <br>
+<div
+    style="color:wheat; background-color:none; border: 3px solid wheat; width: 35%; margin:5px; padding:20px; border-radius: 10px;">
+{% for category in categories %}
+
+    <h4><a href="{% url 'categorylist' category %}">{{category}}</h4></a>
+
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div style="color:wheat; background-color:none; border: 3px solid wheat; width: 45%; margin:5px; padding:5px; border-radius: 10px;">
+    <h1 style='color:wheat'>{{ listing.title }}</h1>
+    {% if remove_watchform %}
+    <form action="{% url 'listing' listing.title %}" method="POST">
+        {% csrf_token %}
+        {{ remove_watchform }}
+        <input class="button button1" type="submit" name="submit_remove_watch" value="Remove from Watchlist">
+    </form>
+    <br>
+    {% endif %}
+    
+    {% if watchform %}
+        <form action="{% url 'listing' listing.title %}" method="POST">
+            {% csrf_token %}
+            {{ watchform }}
+            <input class="button button1" type="submit" name="submit_watch" value="Add to Watchlist">
+        </form>
+        <br>
+    {% endif %}
+    
+    {% if bidform %}
+        <form action="{% url 'listing' listing.title %}" method="POST">
+            {% csrf_token %}
+            {{ bidform }}
+            <input class="button button2" name="submitbid" type="submit" value="Bid">
+        </form>
+    {% endif %}
+    {% if message %}
+        <p>{{message}}</p>
+        <br>
+    {% endif %}
+    
+    {% if win_msg %}
+        <h4>{{ win_msg }}</h4>
+        <br>
+    {% endif %}
+    
+    <img src="{{listing.image}}" alt="" height="300px" width="500px"><br><br>
+    <p>Description: {{listing.description}}</p>
+    <p>Base Price: {{listing.price}} USD</p> 
+    <p>Listed by: {{listing.owner}}</p> 
+    {% if current_high %}
+        Current Price: {{ current_high }} USD
+    {% endif %}
+    {% if closeform %}
+        <form action="{% url 'listing' listing.title %}" method="POST">
+            {% csrf_token %}
+            {{ closeform }}
+            <input class="button button1" type="submit" name="submit" value="Close Bidding">
+        </form>
+    {% endif %}
+    </div>
+    <div align="left">
+    <hr style="width:70%;" color=#F08080> <br><br>
+    <h4 style="color:#F08080">Comments about this listing</h4>
+
+    {% if comment_form %}
+    <form action="{% url 'listing' listing.title %}" method="POST">
+        {% csrf_token %}
+        {{ comment_form }}
+        <br>
+        <input class="button button2" type="submit" name="submit_comment" value="Submit Comment">
+    </form>
+    {% endif %}
+    
+    
+    {% if all_comments %}
+    <br><br>
+    <h5 style="color:#F08080">Previous Comments</h5>
+        {% for this_comment in all_comments %}   
+            {% if this_comment.content %}         
+                <p style="color:wheat">{{this_comment.usr_account}} : {{this_comment.content}}</p>
+            {% endif %}
+        {% endfor %}
+    
+    {% else %}
+        <p style="color:wheat">No comments under this listing</p> 
+    {% endif %}
+    </div>
+{% endblock %}

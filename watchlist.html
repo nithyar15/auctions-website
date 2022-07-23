@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h2 style="color:white">Your Watchlist</h2>
+<hr style="width:70%;" color=#F08080>
+{% if listing %}
+    {% for list in listing %}
+    <div class="div_hover" style="color:wheat; background-color:none; border: 3px solid wheat; width: 45%; margin:5px; padding:5px; border-radius: 10px;">
+    <h4><a href="{% url 'listing' list.title %}">{{ list.title }}</h4></a>
+    <img src={{list.image}} alt="" height="100px" width="200px">
+        <br>
+        Description: {{ list.description }} <br>
+        Base Price: {{ list.price }} USD <br>
+        Listed by: {{list.owner}}
+    </div>
+    {% endfor %}
+    
+{% else %}
+    <h3 style="color:wheat">No items in your Watchlist!</h3>
+{% endif %}
+
+{% endblock %}
